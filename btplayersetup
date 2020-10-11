@@ -1,31 +1,80 @@
 #!/usr/bin/env ruby
 
+require 'fileutils'
 
-# Execute some shell command
-`brew install tree`
+# ======================================================================== BT Player packages ======================================================================== #
 
-# Was the app run successful?
-puts `Node installation status: ` $?.success?
+youview_btplayer="https://gitlab.tools.btcsp.co.uk/tv/youview-btplayer.git"
+inlife_puppet="https://gitlab.tools.btcsp.co.uk/tv/inlife_puppet.git"
+vosp_sim="https://gitlab.tools.btcsp.co.uk/tv/vosp_sim.git"
+cms_static_content="https://gitlab.tools.btcsp.co.uk/tv/vosp_sim_static_content.git"
 
-# Process id of the exited app
-puts `Process ID: ` $?.pid
+# ============================================================ Validate user input. e.g.: Path to save btplayer  ===================================================== #
 
-# The actual exit status code
-puts `Exit status: ` $?.exitstatus
+# First argument which accept path where btplayer packages would be cloned
+if ARGV.length == 1
+	unless File.directory?(ARGV[0])
+		FileUtils.mkdir_p(ARGV[0])
+		puts "New folder has been created at " + ARGV[0]
+	end
+else
+	puts "Please enter a path where you want to clone btplayer"
+end
 
-# puts `brew install tree`
+btplayer_dir = ARGV[0]
+
+# ===================================================================== Pacakge & S/W Installation ================================================================== #
 
 # Install Brew Packages
-# brew install node
-# brew install git
-# brew install bash-completion
-# brew install tree
+`brew install node`
+`brew install git`
+`brew install bash-completion`
+`brew install tree`
 
 # Install MacOS Applications
-# brew cask install google-chrome
-# brew cask install firefox
-# brew cask install skype
-# brew cask install visual-studio-code
-# brew cask install virtualbox
-# brew cask install vagrant
-# brew cask install docker
+`brew cask install visual-studio-code`
+`brew cask install virtualbox`
+`brew cask install vagrant`
+`brew cask install docker`
+`brew cask install google-chrome`
+`brew cask install firefox`
+`brew cask install skype`
+
+# ======================================================================== Git Configuration ======================================================================== #
+
+puts "Please enter git username"
+git_username = gets.chomp
+
+puts "Please enter git email"
+git_email = gets.chomp
+
+`git config --global user.name "#{git_username}"`
+`git config --global user.email #{git_email}`
+
+# ========================================================================== Git Cloning ============================================================================ #
+
+# Go to required folder
+Dir.chdir(btplayer_dir) do
+	puts Dir.pwd
+end
+
+# Cloning of btplayer packages
+`git clone "#{youview_btplayer}"`
+`git clone "#{inlife_puppet}"`
+
+# Initialize and update submodule: sisyphus
+FileUtils.cd("youview-btplayer")
+`git submodule init`
+`git submodule update`
+
+# Doing git pull for vosp_sim & cms_static_content sperately as doGitPullAll.sh not works for vosp_sim_static_content
+FileUtils.cd("../inlife_puppet")
+`git clone "#{vosp_sim}"`
+FileUtils.cd("vosp_sim")
+`git clone "#{vosp_sim_static_content}"`
+`mv vosp_sim_static_content cms_static_content`
+
+
+# TODO: Configure youview_btplayer
+
+

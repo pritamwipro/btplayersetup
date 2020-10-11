@@ -58,7 +58,7 @@ puts `git config --list --show-origin`
 # ========================================================================== Git Cloning ============================================================================ #
 
 # Go to required folder
-Dir.chdir(@btplayer_dir) do
+Dir.chdir("#{@btplayer_dir}") do
 	puts Dir.pwd
 end
 

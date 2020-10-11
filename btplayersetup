@@ -4,10 +4,10 @@ require 'fileutils'
 
 # ======================================================================== BT Player packages ======================================================================== #
 
-youview_btplayer="https://gitlab.tools.btcsp.co.uk/tv/youview-btplayer.git"
-inlife_puppet="https://gitlab.tools.btcsp.co.uk/tv/inlife_puppet.git"
-vosp_sim="https://gitlab.tools.btcsp.co.uk/tv/vosp_sim.git"
-cms_static_content="https://gitlab.tools.btcsp.co.uk/tv/vosp_sim_static_content.git"
+@youview_btplayer="https://gitlab.tools.btcsp.co.uk/tv/youview-btplayer.git"
+@inlife_puppet="https://gitlab.tools.btcsp.co.uk/tv/inlife_puppet.git"
+@vosp_sim="https://gitlab.tools.btcsp.co.uk/tv/vosp_sim.git"
+@cms_static_content="https://gitlab.tools.btcsp.co.uk/tv/vosp_sim_static_content.git"
 
 # ============================================================ Validate user input. e.g.: Path to save btplayer  ===================================================== #
 
@@ -19,9 +19,24 @@ if ARGV.length == 1
 	end
 else
 	puts "Please enter a path where you want to clone btplayer"
+	exit
 end
 
-btplayer_dir = ARGV[0]
+@btplayer_dir = ARGV[0]
+
+
+# ======================================================================== Git Configuration ======================================================================== #
+
+puts "Please enter git username: "
+@git_username = STDIN.gets.chomp
+
+puts "Please enter git email: "
+@git_email = STDIN.gets.chomp
+
+`git config --global user.name "#{@git_username}"`
+`git config --global user.email #{@git_email}`
+
+puts `git config --list --show-origin`
 
 # ===================================================================== Pacakge & S/W Installation ================================================================== #
 
@@ -39,17 +54,6 @@ btplayer_dir = ARGV[0]
 `brew cask install google-chrome`
 `brew cask install firefox`
 `brew cask install skype`
-
-# ======================================================================== Git Configuration ======================================================================== #
-
-puts "Please enter git username"
-git_username = gets.chomp
-
-puts "Please enter git email"
-git_email = gets.chomp
-
-`git config --global user.name "#{git_username}"`
-`git config --global user.email #{git_email}`
 
 # ========================================================================== Git Cloning ============================================================================ #
 

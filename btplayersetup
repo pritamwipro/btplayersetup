@@ -70,12 +70,12 @@ Dir.chdir("#{@btplayer_dir}") do
 	`git submodule init`
 	`git submodule update`
 
-	# Doing git pull for vosp_sim & cms_static_content sperately as doGitPullAll.sh not works for vosp_sim_static_content
+	# Git pull for vosp_sim & cms_static_content sperately as doGitPullAll.sh not working for vosp_sim_static_content
 	FileUtils.cd("../inlife_puppet")
 	`git clone "#{@vosp_sim}"`
+
 	FileUtils.cd("vosp_sim")
-	`git clone "#{@cms_static_content}"`
-	`mv vosp_sim_static_content cms_static_content`
+	`git clone "#{@cms_static_content}" cms_static_content`
 end
 
 

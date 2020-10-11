@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'fileutils'
+require "io/console"
 
 # ======================================================================== BT Player packages ======================================================================== #
 
@@ -27,10 +28,10 @@ end
 
 # ======================================================================== Git Configuration ======================================================================== #
 
-puts "Please enter git username: "
+print "Please enter git username: "
 @git_username = STDIN.gets.chomp
 
-puts "Please enter git email: "
+print "Please enter git email: "
 @git_email = STDIN.gets.chomp
 
 `git config --global user.name "#{@git_username}"`

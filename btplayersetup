@@ -1,8 +1,31 @@
 #!/usr/bin/env ruby
 
 
-if ARGV.length == 1
-	puts "The parameter is: " << ARGV[0]
-else
-	puts "Please enter parameter"
-end
+# Execute some shell command
+`brew install tree`
+
+# Was the app run successful?
+puts `Node installation status: ` $?.success?
+
+# Process id of the exited app
+puts `Process ID: ` $?.pid
+
+# The actual exit status code
+puts `Exit status: ` $?.exitstatus
+
+# puts `brew install tree`
+
+# Install Brew Packages
+# brew install node
+# brew install git
+# brew install bash-completion
+# brew install tree
+
+# Install MacOS Applications
+# brew cask install google-chrome
+# brew cask install firefox
+# brew cask install skype
+# brew cask install visual-studio-code
+# brew cask install virtualbox
+# brew cask install vagrant
+# brew cask install docker

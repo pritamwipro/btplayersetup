@@ -60,23 +60,22 @@ puts `git config --list --show-origin`
 # Go to required folder
 Dir.chdir("#{@btplayer_dir}") do
 	puts Dir.pwd
+	# Cloning of btplayer packages
+	`git clone "#{@youview_btplayer}"`
+	`git clone "#{@inlife_puppet}"`
+
+	# Initialize and update submodule: sisyphus
+	FileUtils.cd("youview-btplayer")
+	`git submodule init`
+	`git submodule update`
+
+	# Doing git pull for vosp_sim & cms_static_content sperately as doGitPullAll.sh not works for vosp_sim_static_content
+	FileUtils.cd("../inlife_puppet")
+	`git clone "#{@vosp_sim}"`
+	FileUtils.cd("vosp_sim")
+	`git clone "#{@vosp_sim_static_content}"`
+	`mv vosp_sim_static_content cms_static_content`
 end
-
-# Cloning of btplayer packages
-`git clone "#{@youview_btplayer}"`
-`git clone "#{@inlife_puppet}"`
-
-# Initialize and update submodule: sisyphus
-FileUtils.cd("youview-btplayer")
-`git submodule init`
-`git submodule update`
-
-# Doing git pull for vosp_sim & cms_static_content sperately as doGitPullAll.sh not works for vosp_sim_static_content
-FileUtils.cd("../inlife_puppet")
-`git clone "#{@vosp_sim}"`
-FileUtils.cd("vosp_sim")
-`git clone "#{@vosp_sim_static_content}"`
-`mv vosp_sim_static_content cms_static_content`
 
 
 # TODO: Configure youview_btplayer

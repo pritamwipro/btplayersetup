@@ -26,18 +26,13 @@ end
 @btplayer_dir = ARGV[0]
 
 
-# ======================================================================== Git Configuration ======================================================================== #
+# ======================================================================== I/O Operation ======================================================================== #
 
 print "Please enter git username: "
 @git_username = STDIN.gets.chomp
 
 print "Please enter git email: "
 @git_email = STDIN.gets.chomp
-
-`git config --global user.name "#{@git_username}"`
-`git config --global user.email #{@git_email}`
-
-puts `git config --list --show-origin`
 
 # ===================================================================== Pacakge & S/W Installation ================================================================== #
 
@@ -55,6 +50,13 @@ puts `git config --list --show-origin`
 `brew cask install google-chrome`
 `brew cask install firefox`
 `brew cask install skype`
+
+# ======================================================================== Git Configuration ======================================================================== #
+
+`git config --global user.name "#{@git_username}"`
+`git config --global user.email #{@git_email}`
+
+puts `git config --list --show-origin`
 
 # ========================================================================== Git Cloning ============================================================================ #
 

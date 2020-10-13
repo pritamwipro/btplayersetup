@@ -51,6 +51,7 @@ print "Please enter git email: "
 # `brew cask install firefox`
 # `brew cask install skype`
 
+
 # ======================================================================== Git Configuration ======================================================================== #
 
 `git config --global user.name "#{@git_username}"`
